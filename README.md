@@ -16,5 +16,5 @@ Dependencies:
 * make utility
 * gcc
 
---
+---
 To build the program, run ```make```
