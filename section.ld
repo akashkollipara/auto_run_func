@@ -1,10 +1,10 @@
 SECTIONS
 {
-	.drivers :
+	.func_table :
 	{
-		_drivers_start = .;
-		KEEP(*(.drivers))
-		_drivers_end = .;
+		_table_start = .;
+		KEEP(*(.func_table))
+		_table_end = .;
 	}
 }
 INSERT AFTER .data;
