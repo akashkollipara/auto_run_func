@@ -2,7 +2,8 @@
 OUT	:= out
 SRCS	:= src
 INC	:= inc/
-OBJS	:= main.o auto_run.o a.o b.o c.o d.o
+OBJS	:= $(notdir $(wildcard $(SRCS)/*.c))
+OBJS	:= $(OBJS:.c=.o)
 LD_SRC	:= section.ld
 CFLAGS	:= -Werror -Wall -I $(INC)
 
