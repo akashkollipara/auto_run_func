@@ -20,6 +20,7 @@ Dependencies:
 make Usage:
 ```
 make <target> <FLAGS>
+```
 | target  | Description        |
 |---------|--------------------|
 | default |Builds binary       |
