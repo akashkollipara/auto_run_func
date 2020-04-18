@@ -17,4 +17,16 @@ Dependencies:
 * gcc
 
 ---
-To build the program, run ```make```
+make Usage:
+```
+make <target> <FLAGS>
+| target  | Description        |
+|---------|--------------------|
+| default |Builds binary       |
+|  clean  |Removes build output|
+|   run   |Runs built binary   |
+
+| FLAGS         | Decsription         |
+|---------------|---------------------|
+| OUT=<path>    |Specify out directory|
+| VERBOSE=<0/1> |Output build logs    |
