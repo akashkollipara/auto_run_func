@@ -6,7 +6,8 @@ INC	:= inc/
 OBJS	:= $(notdir $(wildcard $(SRCS)/*.c))
 OBJS	:= $(OBJS:.c=.o)
 LD_SRC	:= section.ld
-CFLAGS	:= -Werror -Wall -I $(INC)
+CFLAGS	:= -Werror -Wall -I $(INC) -Os		\
+	   -ffunction-sections -fdata-sections
 
 ifeq ($(VERBOSE),0)
 .SILENT:
@@ -20,7 +21,7 @@ run	:
 
 $(OUT)/main.elf	: $(addprefix $(OUT)/,$(OBJS))
 	@echo "Linking $(notdir $@) ..."
-	$(CC) $(CFLAGS) $^ -o $@ -T $(LD_SRC)
+	$(CC) $(CFLAGS) $^ -o $@ -T $(LD_SRC) -Wl,--gc-sections
 
 $(OUT)/%.o	:$(SRCS)/%.c
 	@echo "Compiling $(notdir $<) ..."
