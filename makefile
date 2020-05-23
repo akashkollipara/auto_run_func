@@ -3,8 +3,8 @@ VERBOSE	?= 0
 OUT	?= out
 SRCS	:= src
 INC	:= inc/
-OBJS	:= $(notdir $(wildcard $(SRCS)/*.c))
-OBJS	:= $(OBJS:.c=.o)
+OBJS	:= $(wildcard $(SRCS)/*.c)
+OBJS	:= $(addprefix $(OUT)/,$(OBJS:.c=.o))
 LD_SRC	:= section.ld
 CFLAGS	:= -Werror -Wall -I $(INC) -Os		\
 	   -ffunction-sections -fdata-sections
@@ -15,24 +15,24 @@ ifeq ($(VERBOSE),0)
 .SILENT:
 endif
 
-default	: $(OUT) $(OUT)/main.elf
+default : $(OUT)/main.elf
 
-run	:
+run : $(OUT)/main.elf
 	chmod +x $(OUT)/main.elf
 	$(OUT)/main.elf
 
-$(OUT)/main.elf	: $(addprefix $(OUT)/,$(OBJS))
+$(OUT)/main.elf : $(OBJS) | $(OUT)/
 	@echo "Linking $(notdir $@) ..."
 	$(CC) $(CFLAGS) $^ -o $@ -T $(LD_SRC) -Wl,--gc-sections
 	$(OD) -D $@ > $(subst .elf,.lst,$@)
 	$(SIZE) $@
 
-$(OUT)/%.o	:$(SRCS)/%.c
+$(OBJS): $(OUT)/%.o : %.c | $(OUT)/$(SRCS)/
 	@echo "Compiling $(notdir $<) ..."
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OUT)	:
-	mkdir -p out
+$(OUT)/%/ :
+	mkdir -p $@
 
-clean	:
-	rm -rf out/
+clean :
+	rm -rf $(OUT)
