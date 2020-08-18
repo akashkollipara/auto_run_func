@@ -1,6 +1,6 @@
 Auto Run Function
 ===
-This is a program demonstrates a function need not be
+This is a program intended to demonstrate a function need not be
 called with its name to run it.
 
 A major use case of this method is when you have unknown
